@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		36BDDF09BB619F90FEEC10E2 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2604FF42311D651CFA104F2F /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A8B664AA44FCEBC4C30D104 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29DF0AF7FBE8709DA6CFD8F1 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4AC587F972D3F7C5137E46DB /* SnapKit_SnapKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57379B39B4FC7F010D556D50 /* SnapKit_SnapKit.bundle */; };
 		62D409915E0CF2E351B29D31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BD5490D9E3A7C4C4B55776B /* LaunchScreen.storyboard */; };
 		74FFBB800A46369F45CF0C41 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2604FF42311D651CFA104F2F /* Domain.framework */; };
 		7AC254CECFC50ABB8CB8DBD9 /* TuistBundle+BookDetailFeatureDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E337E37E1FDC6E63B3681 /* TuistBundle+BookDetailFeatureDemo.swift */; };
+		AEB5B7BD9A42CF88069AC38B /* SnapKit_SnapKit.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 57379B39B4FC7F010D556D50 /* SnapKit_SnapKit.bundle */; };
 		B235405AA7C20CC84B6EC2AC /* BookDetailFeature.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 888A887BE1F46C17212B6E0F /* BookDetailFeature.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C7590958563DDA23A45C25C8 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC7611B69A9FE58E2676148 /* BookDetailViewController.swift */; };
 		CACACE5E3C6787D0CD70785D /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29DF0AF7FBE8709DA6CFD8F1 /* DesignSystem.framework */; };
@@ -44,6 +46,16 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8B532D653AC260DFC43EDF40 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				AEB5B7BD9A42CF88069AC38B /* SnapKit_SnapKit.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		DF945D7FE008D68B0B57F65A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -63,6 +75,7 @@
 		29DF0AF7FBE8709DA6CFD8F1 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD5490D9E3A7C4C4B55776B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D2A9167DBB472565413CCF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		57379B39B4FC7F010D556D50 /* SnapKit_SnapKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapKit_SnapKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		644E337E37E1FDC6E63B3681 /* TuistBundle+BookDetailFeatureDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+BookDetailFeatureDemo.swift"; sourceTree = "<group>"; };
 		888A887BE1F46C17212B6E0F /* BookDetailFeature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookDetailFeature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC7611B69A9FE58E2676148 /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +146,7 @@
 				1C9D2A7327E7725067499C4A /* BookDetailFeatureDemo.app */,
 				29DF0AF7FBE8709DA6CFD8F1 /* DesignSystem.framework */,
 				2604FF42311D651CFA104F2F /* Domain.framework */,
+				57379B39B4FC7F010D556D50 /* SnapKit_SnapKit.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,6 +205,7 @@
 				13CD6F1713CA9F0DFE362C3B /* Resources */,
 				EE31B81A07A8312DC0A67EBC /* Frameworks */,
 				3C7AF420F39ED0E491D366EA /* Embed Frameworks */,
+				8B532D653AC260DFC43EDF40 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -259,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62D409915E0CF2E351B29D31 /* LaunchScreen.storyboard in Resources */,
+				4AC587F972D3F7C5137E46DB /* SnapKit_SnapKit.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
