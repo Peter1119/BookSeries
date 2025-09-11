@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DesignSystem
+import SnapKit
 
 public class BookDetailViewController: UIViewController {
     public override func viewDidLoad() {

@@ -1,7 +1,7 @@
 import ProjectDescription
 
 let workspace = Workspace(
-    name: "ModularAppTemplate",
+    name: "BookSeriesApp",
     projects: [
         "BookSeriesApp",
         "Domain",

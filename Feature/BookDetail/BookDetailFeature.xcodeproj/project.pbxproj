@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		4AC587F972D3F7C5137E46DB /* SnapKit_SnapKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57379B39B4FC7F010D556D50 /* SnapKit_SnapKit.bundle */; };
 		62D409915E0CF2E351B29D31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BD5490D9E3A7C4C4B55776B /* LaunchScreen.storyboard */; };
 		74FFBB800A46369F45CF0C41 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2604FF42311D651CFA104F2F /* Domain.framework */; };
+		77EADFC7ECB75F29D3266C6A /* BookDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82046B24BC45F28DC1A3542 /* BookDetailViewModel.swift */; };
 		7AC254CECFC50ABB8CB8DBD9 /* TuistBundle+BookDetailFeatureDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E337E37E1FDC6E63B3681 /* TuistBundle+BookDetailFeatureDemo.swift */; };
 		AEB5B7BD9A42CF88069AC38B /* SnapKit_SnapKit.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 57379B39B4FC7F010D556D50 /* SnapKit_SnapKit.bundle */; };
 		B235405AA7C20CC84B6EC2AC /* BookDetailFeature.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 888A887BE1F46C17212B6E0F /* BookDetailFeature.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -79,6 +80,7 @@
 		644E337E37E1FDC6E63B3681 /* TuistBundle+BookDetailFeatureDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+BookDetailFeatureDemo.swift"; sourceTree = "<group>"; };
 		888A887BE1F46C17212B6E0F /* BookDetailFeature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookDetailFeature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC7611B69A9FE58E2676148 /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
+		B82046B24BC45F28DC1A3542 /* BookDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewModel.swift; sourceTree = "<group>"; };
 		C0074EC8C7ED286140ADB840 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F91B459DF0790AFD93F7AC75 /* BookDetailFeature-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookDetailFeature-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				9AC7611B69A9FE58E2676148 /* BookDetailViewController.swift */,
+				B82046B24BC45F28DC1A3542 /* BookDetailViewModel.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -246,8 +249,6 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = C98790996C89332CF27D7118 /* Build configuration list for PBXProject "BookDetailFeature" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -303,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7590958563DDA23A45C25C8 /* BookDetailViewController.swift in Sources */,
+				77EADFC7ECB75F29D3266C6A /* BookDetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +326,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 96H5TT55S4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/BookDetailFeatureDemo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -366,10 +369,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -497,6 +497,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 96H5TT55S4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/BookDetailFeatureDemo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -509,10 +510,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
