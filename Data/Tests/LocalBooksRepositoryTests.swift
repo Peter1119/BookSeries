@@ -19,7 +19,7 @@ struct LocalBooksRepositoryTests {
         let books = try await repository.fetchAll()
         
         // Then: 결과 검증
-        #expect(books.count == 2, "반환된 책의 개수는 2여야 합니다.")
-        #expect(books[0].title == "Harry Potter and the Philosopher's Stone", "첫 번째 책의 제목이 'Harry Potter and the Philosopher's Stone'여야 합니다.")
+        #expect(books.count == 7, "반환된 책의 개수는 7여야 합니다.")
+        #expect(books[0].title == "Harry Potter and the Philosopher's Stone", "첫 번째 책의 제목은 'Harry Potter and the Philosopher's Stone'입니다.")
     }
 }

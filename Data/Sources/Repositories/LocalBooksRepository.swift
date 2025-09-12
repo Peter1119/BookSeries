@@ -10,6 +10,16 @@ import Domain
 
 public struct LocalBooksRepository: BooksRepository {
     public func fetchAll() async throws -> [Domain.Book] {
-        return []
+        guard let url = Bundle.module.url(forResource: "data", withExtension: "json") else {
+            throw BookError.fileNotFound
+        }
+        
+        let data = try Data(contentsOf: url)
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let bookSeriesDTO = try decoder.decode(BookSeriesDTO.self, from: data)
+        
+        return bookSeriesDTO.data.map { $0.toDomain() }
     }
 }
