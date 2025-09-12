@@ -13,6 +13,7 @@ public protocol DataDecoding {
 }
 
 public struct JSONDataDecoder<DTO: Decodable>: DataDecoding {
+    public init() { }
     public func decode(_ data: Data) throws -> DTO {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase

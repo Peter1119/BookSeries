@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol FetchBooksUseCase {
-    func fetchBooks() async throws -> [Book]
+    func execute() async throws -> [Book]
 }
 
 public struct FetchBooks: FetchBooksUseCase {
@@ -18,7 +18,7 @@ public struct FetchBooks: FetchBooksUseCase {
         self.repository = repository
     }
     
-    public func fetchBooks() async throws -> [Book] {
+    public func execute() async throws -> [Book] {
         return try await repository.fetchAll()
     }
 }

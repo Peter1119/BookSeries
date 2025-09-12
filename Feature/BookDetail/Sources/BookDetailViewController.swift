@@ -11,33 +11,145 @@ import DesignSystem
 import SnapKit
 
 public class BookDetailViewController: UIViewController {
+    
+    // MARK: - Properties
+    private let viewModel: BookDetailViewModel
+    
+    // MARK: - UI Components
+    private let headerSection = BookDetailHeaderSection()
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
+    private let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 24
+        stackView.alignment = .fill
+        return stackView
+    }()
+    
+    private let bookInfoSection = BookInfoSection()
+    private let dedicationSection = DedicationSection()
+    private let summarySection = SummarySection()
+    private let chaptersSection = ChaptersSection()
+    
+    // MARK: - Initializers
+    public init(viewModel: BookDetailViewModel = BookDetailViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    // MARK: - Lifecycle
     private func setupUI() {
-        let image = DesignSystemAsset.harrypotter1
-        let imageView = UIImageView(image: image.image)
         view.backgroundColor = .systemBackground
         title = "BookDetail"
         
-        let label = UILabel()
-        label.text = "BookDetail Feature"
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 24, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        setupLayout()
+        loadBookData()
+    }
+    
+    private func setupLayout() {
+        // Header section 추가 (고정)
+        view.addSubview(headerSection)
         
-        view.addSubview(label)
-        view.addSubview(imageView)
+        // ScrollView 추가
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentStackView)
         
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        // ContentStackView에 섹션들 추가
+        contentStackView.addArrangedSubview(bookInfoSection)
+        contentStackView.addArrangedSubview(dedicationSection)
+        contentStackView.addArrangedSubview(summarySection)
+        contentStackView.addArrangedSubview(chaptersSection)
         
-        imageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        // Header section 레이아웃 (고정 영역)
+        headerSection.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        // ScrollView 레이아웃 (스크롤 가능 영역)
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(headerSection.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        // ContentStackView 레이아웃
+        contentStackView.snp.makeConstraints {
+            $0.top.bottom.equalTo(scrollView)
+            $0.leading.trailing.equalTo(scrollView).inset(20) // 좌우 20pt 마진
+            $0.width.equalTo(scrollView).offset(-40) // scrollView width - 40 (좌우 20씩)
+        }
+    }
+    
+    private func loadBookData() {
+        // BookDetailModel 기반으로 데이터 로딩
+        let allModels = viewModel.getAllBookModels()
+        guard let currentModel = viewModel.getCurrentModel() else { return }
+        
+        // SeriesInfo 배열 생성 (경량화된 데이터)
+        let seriesInfoList = allModels.map { model in
+            SeriesInfo(id: model.id, seriesOrder: model.seriesOrder)
+        }
+        
+        // 헤더 설정 (경량화된 데이터 사용)
+        headerSection.configure(
+            with: seriesInfoList,
+            currentTitle: currentModel.book.title,
+            selectedSeriesId: currentModel.id
+        )
+        
+        // 헤더의 시리즈 선택 콜백 설정
+        headerSection.onSeriesSelected = { [weak self] selectedModelId in
+            self?.switchToModel(with: selectedModelId)
+        }
+        
+        // 각 섹션에 현재 선택된 책의 데이터 설정
+        updateContentSections(with: currentModel)
+    }
+    
+    private func switchToModel(with id: UUID) {
+        // ViewModel에서 모델 선택
+        viewModel.selectModel(by: id)
+        
+        // 선택된 모델로 UI 업데이트
+        guard let selectedModel = viewModel.getModel(by: id) else { return }
+        
+        // SeriesInfo 배열 재생성 (경량화된 데이터)
+        let allModels = viewModel.getAllBookModels()
+        let seriesInfoList = allModels.map { model in
+            SeriesInfo(id: model.id, seriesOrder: model.seriesOrder)
+        }
+        
+        // 헤더의 제목 업데이트 (경량화된 데이터 사용)
+        headerSection.configure(
+            with: seriesInfoList,
+            currentTitle: selectedModel.book.title,
+            selectedSeriesId: selectedModel.id
+        )
+        
+        // 콘텐츠 섹션들 업데이트
+        updateContentSections(with: selectedModel)
+    }
+    
+    private func updateContentSections(with model: BookDetailModel) {
+        bookInfoSection.configure(with: model)
+        dedicationSection.configure(with: model.book.dedication)
+        summarySection.configure(with: model.book.summary)
+        chaptersSection.configure(with: model.book.chapters)
     }
 }
