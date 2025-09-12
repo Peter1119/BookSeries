@@ -9,17 +9,20 @@ import Foundation
 import Domain
 
 public struct LocalBooksRepository: BooksRepository {
+    private let dataLoader: DataLoading
+    private let decoder: JSONDataDecoder<BookSeriesDTO> // 이제 디코더를 주입받습니다.
+    
+    public init(
+        dataLoader: DataLoading,
+        decoder: JSONDataDecoder<BookSeriesDTO>
+    ) {
+        self.dataLoader = dataLoader
+        self.decoder = decoder
+    }
+    
     public func fetchAll() async throws -> [Domain.Book] {
-        guard let url = Bundle.module.url(forResource: "data", withExtension: "json") else {
-            throw BookError.fileNotFound
-        }
-        
-        let data = try Data(contentsOf: url)
-        
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let bookSeriesDTO = try decoder.decode(BookSeriesDTO.self, from: data)
-        
+        let data = try dataLoader.loadData(forResource: "data", withExtension: "json")
+        let bookSeriesDTO = try decoder.decode(data)
         return bookSeriesDTO.data.map { $0.toDomain() }
     }
 }

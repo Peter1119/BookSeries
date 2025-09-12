@@ -13,7 +13,10 @@ struct LocalBooksRepositoryTests {
     @Test
     func fetchAll_올바른_책의_개수를_반환한다() async throws {
         // Given: 테스트 대상 준비
-        let repository = LocalBooksRepository()
+        let repository = LocalBooksRepository(
+            dataLoader: LocalFileLoader(),
+            decoder: JSONDataDecoder()
+        )
         
         // When: 메서드 호출
         let books = try await repository.fetchAll()
