@@ -9,6 +9,7 @@ let project = Project(
             product: .framework,
             bundleId: "com.testdev.data",
             sources: ["Sources/**"],
+            resources: ["Resources/**"],
             dependencies: [
                 .project(target: "Domain", path: "../Domain"),
                 .project(target: "Network", path: "../Network")

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DesignSystem
 import SnapKit
 
 public class BookDetailViewController: UIViewController {
@@ -16,6 +17,8 @@ public class BookDetailViewController: UIViewController {
     }
     
     private func setupUI() {
+        let image = DesignSystemAsset.harrypotter1
+        let imageView = UIImageView(image: image.image)
         view.backgroundColor = .systemBackground
         title = "BookDetail"
         
@@ -26,10 +29,15 @@ public class BookDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(label)
+        view.addSubview(imageView)
         
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+        
+        imageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 }

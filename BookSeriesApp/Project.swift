@@ -23,7 +23,10 @@ let project = Project(
                 ]
             ]),
             sources: ["Sources/**"],
-            resources: ["Resources/**"]
+            resources: ["Resources/**"],
+            dependencies: [
+                .project(target: "BookDetailFeature", path: "../Feature/BookDetail")
+            ]
         )
     ]
 )

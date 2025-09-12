@@ -1,8 +1,8 @@
 import ProjectDescription
 
-let nameAttribute: Template.Attribute = .required("name")
+fileprivate let nameAttribute: Template.Attribute = .required("name")
 
-let template = Template(
+fileprivate let template = Template(
     description: "A template for a new UIKit application.",
     attributes: [
         nameAttribute,
