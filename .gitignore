@@ -95,6 +95,7 @@ iOSInjectionProject/
 Derived/
 .tuist-version
 .tuist-cache/
+.tuist-generated/
 
 # Swift Format
 .swift-format

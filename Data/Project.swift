@@ -11,8 +11,19 @@ let project = Project(
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             dependencies: [
-                .project(target: "Domain", path: "../Domain"),
-                .project(target: "Network", path: "../Network")
+                .project(target: "Domain", path: "../Domain")
+            ]
+        ),
+        .target(
+            name: "DataTests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "com.testdev.data.tests",
+            infoPlist: .default,
+            sources: ["Tests/**"],
+            resources: ["Tests/Resources/**"], // 테스트용 리소스 파일들을 번들에 포함
+            dependencies: [
+                .target(name: "Data")
             ]
         )
     ]

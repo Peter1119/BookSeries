@@ -20,9 +20,6 @@
          location = "group:BookDetail/BookDetailFeature.xcodeproj">
       </FileRef>
    </Group>
-   <FileRef
-      location = "group:Network/Network.xcodeproj">
-   </FileRef>
    <Group
       location = "container:"
       name = "Dependencies">

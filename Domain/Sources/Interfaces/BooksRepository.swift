@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol BookSeriesRepository {
+public protocol BooksRepository {
     func fetchAll() async throws -> [Book]
 }

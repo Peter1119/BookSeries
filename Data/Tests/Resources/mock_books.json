@@ -1,0 +1,135 @@
+{
+    "data": [
+        {
+            "attributes": {
+                "title": "Harry Potter and the Philosopher's Stone",
+                "author": "J. K. Rowling",
+                "pages": 223,
+                "release_date": "1997-06-26",
+                "dedication": "For Jessica, who loves stories, for Anne, who loved them too, and for Di, who heard this one first",
+                "summary": "Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!",
+                "wiki": "https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Philosopher's_Stone",
+                "chapters": [
+                    {
+                        "title": "1. The Boy Who Lived"
+                    },
+                    {
+                        "title": "2. The Vanishing Glass"
+                    },
+                    {
+                        "title": "3. The Letter from No One"
+                    },
+                    {
+                        "title": "4. The Keeper of the Keys"
+                    },
+                    {
+                        "title": "5. Diagon Alley"
+                    },
+                    {
+                        "title": "6. The Journey from Platform Nine and Three-Quarters"
+                    },
+                    {
+                        "title": "7. The Sorting Hat"
+                    },
+                    {
+                        "title": "8. The Potions Master"
+                    },
+                    {
+                        "title": "9. The Midnight Duel"
+                    },
+                    {
+                        "title": "10. Hallowe'en"
+                    },
+                    {
+                        "title": "11. Quidditch"
+                    },
+                    {
+                        "title": "12. The Mirror of Erised"
+                    },
+                    {
+                        "title": "13. Nicolas Flamel"
+                    },
+                    {
+                        "title": "14. Norbert the Norwegian Ridgeback"
+                    },
+                    {
+                        "title": "15. The Forbidden Forest"
+                    },
+                    {
+                        "title": "16. Through the Trapdoor"
+                    },
+                    {
+                        "title": "17. The Man with Two Faces"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "title": "Harry Potter and the Chamber of Secrets",
+                "author": "J. K. Rowling",
+                "pages": 251,
+                "release_date": "1998-07-02",
+                "dedication": "For Séan P. F. Harris, getaway driver and foul-weather friend",
+                "summary": "Harry Potter's summer has included the worst birthday ever, doomy warnings from a house-elf called Dobby, and rescue from the Dursleys by his friend Ron Weasley in a magical flying car! Back at Hogwarts School of Witchcraft And Wizardry for his second year, Harry hears strange whispers echo through empty corridors – and then the attacks start. Students are found as though turned to stone... Dobby's sinister predictions seem to be coming true.",
+                "wiki": "https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Chamber_of_Secrets",
+                "chapters": [
+                    {
+                        "title": "1. The Worst Birthday"
+                    },
+                    {
+                        "title": "2. Dobby's Warning"
+                    },
+                    {
+                        "title": "3. The Burrow"
+                    },
+                    {
+                        "title": "4. At Flourish and Blotts"
+                    },
+                    {
+                        "title": "5. The Whomping Willow"
+                    },
+                    {
+                        "title": "6. Gilderoy Lockhart"
+                    },
+                    {
+                        "title": "7. Mudbloods And Murmurs"
+                    },
+                    {
+                        "title": "8. The Deathday Party"
+                    },
+                    {
+                        "title": "9. The Writing on the Wall"
+                    },
+                    {
+                        "title": "10. The Rogue Bludger"
+                    },
+                    {
+                        "title": "11. The Duelling Club"
+                    },
+                    {
+                        "title": "12. The Polyjuice Potion"
+                    },
+                    {
+                        "title": "13. The Very Secret Diary"
+                    },
+                    {
+                        "title": "14. Cornelius Fudge"
+                    },
+                    {
+                        "title": "15. Aragog"
+                    },
+                    {
+                        "title": "16. The Chamber of Secrets"
+                    },
+                    {
+                        "title": "17. The Heir of Slytherin"
+                    },
+                    {
+                        "title": "18. Dobby's Reward"
+                    }
+                ]
+            }
+        }
+    ]
+}
