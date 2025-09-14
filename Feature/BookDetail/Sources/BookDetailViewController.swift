@@ -39,7 +39,7 @@ public class BookDetailViewController: UIViewController {
     private let chaptersSection = ChaptersSection()
     
     // MARK: - Initializers
-    public init(viewModel: BookDetailViewModel = BookDetailViewModel()) {
+    public init(viewModel: BookDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -135,7 +135,6 @@ public class BookDetailViewController: UIViewController {
         // 선택된 모델로 UI 업데이트
         guard let selectedModel = viewModel.getModel(by: order) else { return }
         
-        // SeriesInfo 배열 재생성 (경량화된 데이터)
         let allModels = viewModel.getAllBookModels()
 
         // 헤더의 제목 업데이트 (경량화된 데이터 사용)

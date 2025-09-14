@@ -8,8 +8,8 @@
 import Foundation
 
 public protocol ManageBookStateUseCase {
-    func getSummaryExpandState(for seriesOrder: Int) -> Bool
-    func setSummaryExpandState(for seriesOrder: Int, isExpanded: Bool)
+    func getSummaryExpandState(for seriesOrder: Int) async -> Bool
+    func setSummaryExpandState(for seriesOrder: Int, isExpanded: Bool) async
 }
 
 /// 책 상태 관리 유스케이스
@@ -26,26 +26,28 @@ public final class ManageBookState: ManageBookStateUseCase {
     /// 특정 시리즈의 요약 펼침 상태를 조회
     /// - Parameter seriesOrder: 시리즈 순서 (1-7)
     /// - Returns: 펼침 상태 (true: 펼침, false: 접음)
-    public func getSummaryExpandState(for seriesOrder: Int) -> Bool {
+    public func getSummaryExpandState(for seriesOrder: Int) async -> Bool {
         // 유효한 시리즈 순서인지 검증
         guard isValidSeriesOrder(seriesOrder) else {
             return false // 기본값 반환
         }
         
-        return repository.getSummaryExpandState(for: seriesOrder)
+        let result = try? await repository.getSummaryExpandState(for: seriesOrder)
+        return result ?? false
     }
 
     /// 특정 시리즈의 요약 펼침 상태를 설정
     /// - Parameters:
     ///   - seriesOrder: 시리즈 순서 (1-7)
     ///   - isExpanded: 설정할 펼침 상태
-    public func setSummaryExpandState(for seriesOrder: Int, isExpanded: Bool) {
+    public func setSummaryExpandState(for seriesOrder: Int, isExpanded: Bool) async {
         // 유효한 시리즈 순서인지 검증
+        print(#function, "펼치기 상태 변경 시도 \(seriesOrder): \(isExpanded)")
         guard isValidSeriesOrder(seriesOrder) else {
             return // 잘못된 시리즈 순서면 무시
         }
         
-        repository.saveSummaryExpandState(for: seriesOrder, isExpanded: isExpanded)
+        try? await repository.saveSummaryExpandState(for: seriesOrder, isExpanded: isExpanded)
     }
     
     // MARK: - Private Methods

@@ -11,7 +11,7 @@ import Domain
 public final class BookDetailViewModel {
     private let fetchBookUseCase: FetchBooksUseCase?
     private let manageBookStateUseCase: ManageBookStateUseCase?
-    private var bookModels: [BookDetailModel] = []
+    private var bookModels: IdentifiedArray<BookDetailModel> = .init()
     private var currentSeriesOrder: Int?
     
     /// 초기화
@@ -28,39 +28,51 @@ public final class BookDetailViewModel {
     
     // MARK: - BookDetailModel Management
     public func getAllBookModels() -> [BookDetailModel] {
-        return bookModels
+        return bookModels.asArray
     }
     
     public func getCurrentModel() -> BookDetailModel? {
         guard let currentOrder = currentSeriesOrder else { return bookModels.first }
-        return bookModels.first { $0.seriesOrder == currentOrder }
+        return bookModels[id: currentOrder]
     }
     
     public func getModel(
         by seriesOrder: Int
     ) -> BookDetailModel? {
-        return bookModels.first { $0.seriesOrder == seriesOrder }
+        return bookModels[id: seriesOrder]
     }
     
     public func selectModel(
         by seriesOrder: Int
     ) {
-        if bookModels.contains(where: { $0.seriesOrder == seriesOrder }) {
+        if bookModels.asArray.contains(where: { $0.seriesOrder == seriesOrder }) {
             currentSeriesOrder = seriesOrder
         }
     }
     
     public func fetchBooks() async throws -> [BookDetailModel] {
+        var result: IdentifiedArray<BookDetailModel> = .init()
         let books = try await fetchBookUseCase?.execute() ?? []
-        self.bookModels = books.enumerated().map { offset, element in
-            let isExpanded = self.getSummaryExpandState(for: offset)
-            return BookDetailModel(
-                seriesOrder: offset,
-                book: element,
-                isSummaryExpanded: isExpanded
-            )
+        try await withThrowingTaskGroup(of: BookDetailModel.self) { group in
+            for (offset, element) in books.enumerated() {
+                group.addTask {
+                    let index = offset + 1
+                    let isExpanded = await self.getSummaryExpandState(for: index)
+                    return BookDetailModel(
+                        seriesOrder: index,
+                        book: element,
+                        isSummaryExpanded: isExpanded
+                    )
+                }
+            }
+            
+            for try await data in group {
+                result[id: data.id] = data
+            }
         }
-        return self.bookModels
+        result.sort(by: { $0.seriesOrder < $1.seriesOrder })
+        self.bookModels = result
+        return self.bookModels.asArray
     }
     
     // MARK: - State Management
@@ -70,8 +82,8 @@ public final class BookDetailViewModel {
     /// - Returns: 펼침 상태 (true: 펼침, false: 접음)
     private func getSummaryExpandState(
         for seriesOrder: Int
-    ) -> Bool {
-        return manageBookStateUseCase?.getSummaryExpandState(for: seriesOrder) ?? false
+    ) async -> Bool {
+        return await manageBookStateUseCase?.getSummaryExpandState(for: seriesOrder) ?? false
     }
 
     /// 특정 시리즈의 요약 펼침 상태를 설정
@@ -82,10 +94,13 @@ public final class BookDetailViewModel {
         for seriesOrder: Int,
         isExpanded: Bool
     ) {
-        self.bookModels[seriesOrder].isSummaryExpanded = isExpanded
-        manageBookStateUseCase?.setSummaryExpandState(
-            for: seriesOrder,
-            isExpanded: isExpanded
-        )
+        Task {
+            self.bookModels[id: seriesOrder]?.isSummaryExpanded = isExpanded
+            print("펼치기 상태 변경 시도 \(seriesOrder): \(isExpanded)")
+            await manageBookStateUseCase?.setSummaryExpandState(
+                for: seriesOrder,
+                isExpanded: isExpanded
+            )
+        }
     }
 }

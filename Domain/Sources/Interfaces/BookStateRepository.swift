@@ -12,11 +12,11 @@ public protocol BookStateRepository {
     /// 특정 시리즈의 요약 펼침 상태를 조회
     /// - Parameter seriesOrder: 시리즈 순서 (1-7)
     /// - Returns: 펼침 상태 (true: 펼침, false: 접음)
-    func getSummaryExpandState(for seriesOrder: Int) -> Bool
+    func getSummaryExpandState(for seriesOrder: Int) async throws -> Bool
     
     /// 특정 시리즈의 요약 펼침 상태를 저장
     /// - Parameters:
     ///   - seriesOrder: 시리즈 순서 (1-7)
     ///   - isExpanded: 펼침 상태 (true: 펼침, false: 접음)
-    func saveSummaryExpandState(for seriesOrder: Int, isExpanded: Bool)
+    func saveSummaryExpandState(for seriesOrder: Int, isExpanded: Bool) async throws
 }

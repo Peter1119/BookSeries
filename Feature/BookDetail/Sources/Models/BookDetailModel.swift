@@ -9,7 +9,8 @@ import UIKit
 import Domain
 import DesignSystem
 
-public struct BookDetailModel {
+public struct BookDetailModel: Identifiable {
+    public var id: Int { self.seriesOrder }
     let seriesOrder: Int // 1-7
     let book: Book
     var isSummaryExpanded: Bool
