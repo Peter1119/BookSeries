@@ -159,7 +159,7 @@ public class BookDetailViewController: UIViewController {
     private func updateContentSections(with model: BookDetailModel) {
         bookInfoSection.configure(with: model)
         dedicationSection.configure(with: model.book.dedication)
-        summarySection.configure(with: model.book.summary)
+        summarySection.configure(with: model.book.summary, bookId: model.id)
         chaptersSection.configure(with: model.book.chapters)
     }
 }

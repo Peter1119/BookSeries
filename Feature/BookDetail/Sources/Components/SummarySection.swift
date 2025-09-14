@@ -28,6 +28,24 @@ public final class SummarySection: UIView {
         return label
     }()
     
+    private let toggleButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("더보기", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.isHidden = true
+        return button
+    }()
+    
+    // State management
+    private var fullText: String = ""
+    private var isExpanded: Bool = false
+    private let characterLimit = 450
+    private var bookId: UUID?
+    
+    // Callback for expand state changes
+    public var onExpandStateChanged: ((UUID, Bool) -> Void)?
+    
     // MARK: - Initializers
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,20 +58,73 @@ public final class SummarySection: UIView {
     
     // MARK: - Setup
     private func setupUI() {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, contentLabel])
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                titleLabel,
+                contentLabel
+            ]
+        )
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.alignment = .leading
         
         addSubview(stackView)
+        addSubview(toggleButton)
+        
+        // Toggle button setup
+        toggleButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.toggleExpanded()
+        }), for: .touchUpInside)
         
         stackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
+        }
+        
+        // Toggle button을 우측 하단에 배치
+        toggleButton.snp.makeConstraints {
+            $0.top.equalTo(stackView.snp.bottom).offset(8)
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
     
     // MARK: - Public Methods
-    public func configure(with summary: String) {
-        contentLabel.text = summary
+    public func configure(with summary: String, bookId: UUID, isExpanded: Bool = false) {
+        self.fullText = summary
+        self.bookId = bookId
+        self.isExpanded = isExpanded
+        
+        updateContent()
+    }
+    
+    // MARK: - Private Methods
+    private func updateContent() {
+        let needsTruncation = fullText.count > characterLimit
+        
+        if needsTruncation {
+            toggleButton.isHidden = false
+            
+            if isExpanded {
+                contentLabel.text = fullText
+                toggleButton.setTitle("접기", for: .normal)
+            } else {
+                let trimmedText = String(fullText.prefix(characterLimit)) + "…"
+                contentLabel.text = trimmedText
+                toggleButton.setTitle("더보기", for: .normal)
+            }
+        } else {
+            toggleButton.isHidden = true
+            contentLabel.text = fullText
+        }
+    }
+    
+    private func toggleExpanded() {
+        isExpanded.toggle()
+        updateContent()
+        
+        // 상태 변경 알림
+        if let bookId = bookId {
+            onExpandStateChanged?(bookId, isExpanded)
+        }
     }
 }
