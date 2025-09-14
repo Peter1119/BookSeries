@@ -1,61 +1,76 @@
-# BookSeries
+# Harry Potter Book Series
 
-Created by 홍석현 on 09-11-25.
-Copyright © 2025 홍석현. All rights reserved.
+해리포터 시리즈 도서 정보를 확인할 수 있는 iOS 앱입니다.
 
-## 🏗️ 모듈러 아키텍처
+## 📱 주요 기능
 
-이 프로젝트는 Tuist를 사용한 모듈러 iOS 아키텍처 템플릿입니다.
+- **시리즈 도서 탐색**: 해리포터 시리즈 1-7권 정보 확인
+- **상세 정보 보기**: 각 도서의 표지, 제목, 작가, 페이지 수, 출간일, 헌정사, 줄거리 확인
+- **확장 가능한 줄거리**: 긴 줄거리는 "더보기/접기" 기능으로 편리하게 확인
+- **상태 저장**: 줄거리 펼침 상태가 앱 재실행 후에도 유지
+- **직관적인 UI**: 시리즈 버튼으로 쉽게 도서 간 이동
 
-### 📁 모듈 구조
+## 🏗️ 아키텍처
 
-- **App**: 메인 애플리케이션
+### Clean Architecture + MVVM
+```
+📱 Feature Layer (BookDetail)
+    └── MVVM Pattern
+    
+🔧 Domain Layer
+    ├── Entities (Book)
+    ├── Use Cases (FetchBooks, ManageBookState)  
+    └── Repositories (Abstract)
+    
+💾 Data Layer
+    ├── Repositories (Concrete)
+    ├── SwiftData Models (BookState)
+    └── Local JSON Data
+    
+🎨 Design System
+    └── Assets & Components
+```
+
+### 모듈 구조
+- **BookSeriesApp**: 메인 앱
+- **Feature/BookDetail**: 도서 상세 정보 기능
 - **Domain**: 비즈니스 로직 및 엔터티
-- **Data**: 데이터 레이어 (Repository 구현)
-- **Network**: 네트워크 통신
-- **DesignSystem**: UI 컴포넌트 및 디자인 시스템
-- **Feature**: 각 기능별 모듈들
+- **Data**: 데이터 접근 및 저장
+- **DesignSystem**: UI 컴포넌트 및 리소스
 
-### 🚀 시작하기
+## 🚀 실행 방법
 
 ```bash
-# 새 Feature 생성
-make feature
-
 # Xcode 프로젝트 생성
 make generate
 
-# 프로젝트 정리
-make clean
-
-# 도움말
-make help
+# 앱 실행
+# BookSeriesApp 스킴 선택 후 실행
 ```
 
-### 🎯 Feature 개발
+## 🛠️ 기술 스택
 
-각 Feature는 독립적인 데모앱을 포함하여 개발 및 테스트가 가능합니다.
+- **Language**: Swift 5.9
+- **UI**: UIKit + SnapKit
+- **Architecture**: Clean Architecture, MVVM
+- **Data**: SwiftData (영구 저장), Local JSON
+- **Build Tool**: Tuist
+- **Minimum iOS**: 18.5+
 
-```bash
-# 새 Feature 생성 (예: Login)
-make feature
-# > Login 입력
+## 📊 데이터 구조
 
-# Xcode에서 LoginFeatureDemo 스킴 선택 후 실행
-```
+앱은 로컬 JSON 파일에서 해리포터 시리즈 데이터를 로드합니다:
+- 제목, 작가, 페이지 수, 출간일
+- 헌정사 및 상세 줄거리
+- 사용자의 UI 상태는 SwiftData로 영구 저장
 
-### 📝 템플릿 구조
+## 🎯 개발 포인트
 
-- Framework: 실제 기능 구현
-- Demo App: 독립 실행 가능한 데모 애플리케이션
-- 자동 의존성 관리
+- **모듈화**: Tuist를 활용한 멀티모듈 구조로 확장성과 재사용성 확보
+- **상태 관리**: 비동기 상태 관리를 통한 부드러운 사용자 경험
+- **데이터 지속성**: SwiftData를 활용한 로컬 상태 저장
+- **컴포넌트 기반 UI**: 재사용 가능한 UI 컴포넌트로 유지보수성 향상
 
-## 🛠️ 요구사항
+---
 
-- Xcode 15.0+
-- iOS 15.0+
-- Tuist 4.0+
-
-## 📄 라이선스
-
-Copyright © 2025 홍석현. All rights reserved.
+*해리포터 시리즈의 모든 정보는 공개된 데이터를 바탕으로 구성되었습니다.*
