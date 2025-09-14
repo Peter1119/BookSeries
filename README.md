@@ -32,6 +32,9 @@
 ```
 
 ### 모듈 구조
+
+<img width="610" height="347" alt="graph" src="https://github.com/user-attachments/assets/0fc4e472-a0e3-48f9-a564-24a8b43ad7a2" />
+
 - **BookSeriesApp**: 메인 앱
 - **Feature/BookDetail**: 도서 상세 정보 기능
 - **Domain**: 비즈니스 로직 및 엔터티
