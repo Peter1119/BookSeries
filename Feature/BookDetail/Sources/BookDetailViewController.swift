@@ -91,18 +91,28 @@ public class BookDetailViewController: UIViewController {
         // ContentStackView 레이아웃
         contentStackView.snp.makeConstraints {
             $0.top.bottom.equalTo(scrollView)
-            $0.leading.trailing.equalTo(scrollView).inset(20) // 좌우 20pt 마진
-            $0.width.equalTo(scrollView).offset(-40) // scrollView width - 40 (좌우 20씩)
+            $0.leading.trailing.equalTo(scrollView).inset(20)
+            $0.width.equalTo(scrollView).offset(-40)
         }
     }
     
     private func loadBookData() {
-        // BookDetailModel 기반으로 데이터 로딩
-        let allModels = viewModel.getAllBookModels()
+        Task {
+            do {
+                let books = try await viewModel.fetchBooks()
+                await MainActor.run {
+                    updateUI(with: books)
+                }
+            } catch {
+                
+            }
+        }
+    }
+    
+    private func updateUI(with models: [BookDetailModel]) {
         guard let currentModel = viewModel.getCurrentModel() else { return }
-        
         // SeriesInfo 배열 생성 (경량화된 데이터)
-        let seriesInfoList = allModels.map { model in
+        let seriesInfoList = models.map { model in
             SeriesInfo(id: model.id, seriesOrder: model.seriesOrder)
         }
         

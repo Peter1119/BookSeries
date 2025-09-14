@@ -13,7 +13,6 @@ public final class BookDetailViewModel {
     private var bookModels: [BookDetailModel] = []
     private var currentModelId: UUID?
     
-    // Mock 데이터용 초기화
     public init(fetchBookUseCase: FetchBooksUseCase? = nil) {
         self.fetchBookUseCase = fetchBookUseCase
     }
@@ -39,7 +38,11 @@ public final class BookDetailViewModel {
     }
     
     // MARK: - Future Implementation
-    public func fetchBooks() async throws -> [Book] {
-        return try await fetchBookUseCase?.execute() ?? []
+    public func fetchBooks() async throws -> [BookDetailModel] {
+        let books = try await fetchBookUseCase?.execute() ?? []
+        self.bookModels = books.enumerated().map { offset, element in
+            return BookDetailModel(seriesOrder: offset + 1, book: element)
+        }
+        return self.bookModels
     }
 }
