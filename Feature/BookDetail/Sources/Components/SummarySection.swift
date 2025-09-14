@@ -41,9 +41,9 @@ public final class SummarySection: UIView {
     private var fullText: String = ""
     private var isExpanded: Bool = false
     private let characterLimit = 450
-    private var bookId: UUID?
+    private var seriesOrder: Int?
     
-    public var onExpandStateChanged: ((UUID, Bool) -> Void)?
+    public var onExpandStateChanged: ((Int, Bool) -> Void)?
     
     // MARK: - Initializers
     public override init(frame: CGRect) {
@@ -89,11 +89,11 @@ public final class SummarySection: UIView {
     // MARK: - Public Methods
     public func configure(
         with summary: String,
-        bookId: UUID,
+        seriesOrder: Int,
         isExpanded: Bool = false
     ) {
         self.fullText = summary
-        self.bookId = bookId
+        self.seriesOrder = seriesOrder
         self.isExpanded = isExpanded
         
         updateContent()
@@ -123,8 +123,8 @@ public final class SummarySection: UIView {
         isExpanded.toggle()
         updateContent()
         
-        if let bookId = bookId {
-            onExpandStateChanged?(bookId, isExpanded)
+        if let seriesOrder = seriesOrder {
+            onExpandStateChanged?(seriesOrder, isExpanded)
         }
     }
 }

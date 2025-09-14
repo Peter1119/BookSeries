@@ -14,12 +14,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let repository: BooksRepository = LocalBooksRepository(
+        let booksRepository: BooksRepository = LocalBooksRepository(
             dataLoader: LocalFileLoader(),
             decoder: JSONDataDecoder()
         )
-        let useCase = FetchBooks(repository: repository)
-        let viewModel = BookDetailViewModel(fetchBookUseCase: useCase)
+        let bookStateRepository = LocalBookStateRepository()
+        let viewModel = BookDetailViewModel(
+            fetchBookUseCase: FetchBooks(repository: booksRepository),
+            manageBookStateUseCase: ManageBookState(repository: bookStateRepository)
+        )
         window?.rootViewController = BookDetailViewController(viewModel: viewModel)
         window?.makeKeyAndVisible()
     }

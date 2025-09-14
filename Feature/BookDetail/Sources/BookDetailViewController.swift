@@ -111,45 +111,38 @@ public class BookDetailViewController: UIViewController {
     
     private func updateUI(with models: [BookDetailModel]) {
         guard let currentModel = viewModel.getCurrentModel() else { return }
-        // SeriesInfo 배열 생성 (경량화된 데이터)
-        let seriesInfoList = models.map { model in
-            SeriesInfo(id: model.id, seriesOrder: model.seriesOrder)
-        }
-        
-        // 헤더 설정 (경량화된 데이터 사용)
         headerSection.configure(
-            with: seriesInfoList,
+            with: models.map { $0.seriesOrder },
             currentTitle: currentModel.book.title,
-            selectedSeriesId: currentModel.id
+            selectedSeriesOrder: currentModel.seriesOrder
         )
         
-        // 헤더의 시리즈 선택 콜백 설정
-        headerSection.onSeriesSelected = { [weak self] selectedModelId in
-            self?.switchToModel(with: selectedModelId)
+        headerSection.onSeriesSelected = { [weak self] order in
+            self?.switchToModel(with: order)
         }
         
-        // 각 섹션에 현재 선택된 책의 데이터 설정
+        summarySection.onExpandStateChanged = { [weak self] (order, isExpanded) in
+            self?.viewModel.setSummaryExpandState(for: order, isExpanded: isExpanded)
+        }
+        
         updateContentSections(with: currentModel)
     }
     
-    private func switchToModel(with id: UUID) {
+    private func switchToModel(with order: Int) {
         // ViewModel에서 모델 선택
-        viewModel.selectModel(by: id)
+        viewModel.selectModel(by: order)
         
         // 선택된 모델로 UI 업데이트
-        guard let selectedModel = viewModel.getModel(by: id) else { return }
+        guard let selectedModel = viewModel.getModel(by: order) else { return }
         
         // SeriesInfo 배열 재생성 (경량화된 데이터)
         let allModels = viewModel.getAllBookModels()
-        let seriesInfoList = allModels.map { model in
-            SeriesInfo(id: model.id, seriesOrder: model.seriesOrder)
-        }
-        
+
         // 헤더의 제목 업데이트 (경량화된 데이터 사용)
         headerSection.configure(
-            with: seriesInfoList,
+            with: allModels.map(\.seriesOrder),
             currentTitle: selectedModel.book.title,
-            selectedSeriesId: selectedModel.id
+            selectedSeriesOrder: selectedModel.seriesOrder
         )
         
         // 콘텐츠 섹션들 업데이트
@@ -159,7 +152,11 @@ public class BookDetailViewController: UIViewController {
     private func updateContentSections(with model: BookDetailModel) {
         bookInfoSection.configure(with: model)
         dedicationSection.configure(with: model.book.dedication)
-        summarySection.configure(with: model.book.summary, bookId: model.id)
+        summarySection.configure(
+            with: model.book.summary,
+            seriesOrder: model.seriesOrder,
+            isExpanded: model.isSummaryExpanded
+        )
         chaptersSection.configure(with: model.book.chapters)
     }
 }

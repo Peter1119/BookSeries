@@ -10,11 +10,6 @@ import SnapKit
 import Domain
 import Foundation
 
-public struct SeriesInfo {
-    let id: UUID
-    let seriesOrder: Int
-}
-
 public final class BookDetailHeaderSection: UIView {
 
     private let titleLabel: UILabel = {
@@ -36,10 +31,10 @@ public final class BookDetailHeaderSection: UIView {
     }()
     
     private var seriesButtons: [UIButton] = []
-    private var seriesInfoList: [SeriesInfo] = []
-    private var selectedSeriesId: UUID?
+    private var seriesOrderList: [Int] = []
+    private var selectedSeriesOrder: Int?
 
-    public var onSeriesSelected: ((UUID) -> Void)?
+    public var onSeriesSelected: ((Int) -> Void)?
     
     // MARK: - Initializers
     public override init(frame: CGRect) {
@@ -78,15 +73,15 @@ public final class BookDetailHeaderSection: UIView {
             $0.removeFromSuperview()
         }
         
-        for seriesInfo in seriesInfoList {
+        for seriesOrder in seriesOrderList {
             let button = UIButton(type: .system)
-            button.setTitle("\(seriesInfo.seriesOrder)", for: .normal)
+            button.setTitle("\(seriesOrder)", for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
             button.backgroundColor = .systemGray5
             button.setTitleColor(.black, for: .normal)
             button.layer.cornerRadius = 20
             button.addAction(UIAction(handler: { [weak self] _ in
-                self?.seriesButtonTapped(seriesInfo.id)
+                self?.seriesButtonTapped(seriesOrder)
             }), for: .touchUpInside)
             
             button.snp.makeConstraints {
@@ -98,21 +93,21 @@ public final class BookDetailHeaderSection: UIView {
         }
         
         // 첫 번째 버튼을 선택 상태로 설정
-        if let firstSeries = seriesInfoList.first {
-            updateButtonSelection(selectedSeriesId: firstSeries.id)
+        if let firstSeries = seriesOrderList.first {
+            updateButtonSelection(selectedSeriesOrder: firstSeries)
         }
     }
     
-    private func seriesButtonTapped(_ id: UUID) {
-        updateButtonSelection(selectedSeriesId: id)
-        onSeriesSelected?(id)
+    private func seriesButtonTapped(_ order: Int) {
+        updateButtonSelection(selectedSeriesOrder: order)
+        onSeriesSelected?(order)
     }
     
-    private func updateButtonSelection(selectedSeriesId: UUID) {
-        self.selectedSeriesId = selectedSeriesId
+    private func updateButtonSelection(selectedSeriesOrder: Int) {
+        self.selectedSeriesOrder = selectedSeriesOrder
         
         for (index, button) in seriesButtons.enumerated() {
-            if index < seriesInfoList.count && seriesInfoList[index].id == selectedSeriesId {
+            if index < seriesOrderList.count && seriesOrderList[index] == selectedSeriesOrder {
                 button.backgroundColor = .systemBlue
                 button.setTitleColor(.white, for: .normal)
             } else {
@@ -123,17 +118,17 @@ public final class BookDetailHeaderSection: UIView {
     }
 
     public func configure(
-        with seriesInfoList: [SeriesInfo],
+        with seriesOrders: [Int],
         currentTitle: String,
-        selectedSeriesId: UUID? = nil
+        selectedSeriesOrder: Int? = nil
     ) {
-        self.seriesInfoList = seriesInfoList
+        self.seriesOrderList = seriesOrders
         titleLabel.text = currentTitle
         
         createSeriesButtons()
         
-        if let selectedId = selectedSeriesId {
-            updateButtonSelection(selectedSeriesId: selectedId)
+        if let selectedOrder = selectedSeriesOrder {
+            updateButtonSelection(selectedSeriesOrder: selectedOrder)
         }
     }
 }

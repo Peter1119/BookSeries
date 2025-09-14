@@ -10,16 +10,18 @@ import Domain
 import DesignSystem
 
 public struct BookDetailModel {
-    let id: UUID
     let seriesOrder: Int // 1-7
     let book: Book
+    var isSummaryExpanded: Bool
     
-    var isSummaryExpanded: Bool = false
-    
-    public init(seriesOrder: Int, book: Book) {
-        self.id = UUID()
+    public init(
+        seriesOrder: Int,
+        book: Book,
+        isSummaryExpanded: Bool = false
+    ) {
         self.seriesOrder = seriesOrder
         self.book = book
+        self.isSummaryExpanded = isSummaryExpanded
     }
     
     var image: UIImage {
