@@ -37,13 +37,12 @@ public final class SummarySection: UIView {
         return button
     }()
     
-    // State management
+    // 상태 관리
     private var fullText: String = ""
     private var isExpanded: Bool = false
     private let characterLimit = 450
     private var bookId: UUID?
     
-    // Callback for expand state changes
     public var onExpandStateChanged: ((UUID, Bool) -> Void)?
     
     // MARK: - Initializers
@@ -71,7 +70,6 @@ public final class SummarySection: UIView {
         addSubview(stackView)
         addSubview(toggleButton)
         
-        // Toggle button setup
         toggleButton.addAction(UIAction(handler: { [weak self] _ in
             self?.toggleExpanded()
         }), for: .touchUpInside)
@@ -89,7 +87,11 @@ public final class SummarySection: UIView {
     }
     
     // MARK: - Public Methods
-    public func configure(with summary: String, bookId: UUID, isExpanded: Bool = false) {
+    public func configure(
+        with summary: String,
+        bookId: UUID,
+        isExpanded: Bool = false
+    ) {
         self.fullText = summary
         self.bookId = bookId
         self.isExpanded = isExpanded
@@ -100,7 +102,6 @@ public final class SummarySection: UIView {
     // MARK: - Private Methods
     private func updateContent() {
         let needsTruncation = fullText.count > characterLimit
-        
         if needsTruncation {
             toggleButton.isHidden = false
             
@@ -122,7 +123,6 @@ public final class SummarySection: UIView {
         isExpanded.toggle()
         updateContent()
         
-        // 상태 변경 알림
         if let bookId = bookId {
             onExpandStateChanged?(bookId, isExpanded)
         }
