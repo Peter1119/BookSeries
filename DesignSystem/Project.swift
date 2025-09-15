@@ -10,7 +10,9 @@ let project = Project(
             bundleId: "com.testdev.designsystem",
             sources: ["Sources/**"],
             resources: ["Resources/**"],
-            dependencies: []
+            dependencies: [
+                .external(name: "SnapKit")
+            ]
         )
     ]
 )

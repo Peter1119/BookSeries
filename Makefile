@@ -1,6 +1,6 @@
 # BookSeries Project Makefile
 
-.PHONY: feature generate clean help
+.PHONY: feature generate clean install help
 
 # Find Tuist path
 TUIST_PATH := $(shell command -v tuist 2>/dev/null || find /usr/local/bin /opt/homebrew/bin ~/.local/share/mise/installs/tuist/*/bin -name tuist 2>/dev/null | head -1)
